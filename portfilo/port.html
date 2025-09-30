@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mohit Kumar Singh — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0e141e;
+      --card:rgba(255,255,255,0.05);
+      --muted:#a3afc7;
+      --text:#f2f5fa;
+      --accent:#4cc9f0;
+      --radius:12px;
+      --maxwidth:900px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+      background:linear-gradient(180deg,#0b111b,#141b29);
+      color:var(--text);
+      line-height:1.6;
+      padding:70px 16px 16px;
+      display:flex;justify-content:center;
+    }
+    .wrap{width:100%;max-width:var(--maxwidth)}
+
+    /* Sticky Header */
+    header{
+      position:fixed;
+      top:0;left:0;right:0;
+      background:rgba(14,20,30,0.85);
+      backdrop-filter:blur(8px);
+      z-index:1000;
+      padding:10px 16px;
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .brand{display:flex;align-items:center;gap:10px}
+    .avatar{width:40px;height:40px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;color:#041019}
+    .name{font-weight:700;font-size:16px}
+    .muted{color:var(--muted);font-size:12px}
+    nav{display:flex;gap:8px;flex-wrap:wrap}
+    a.btn{background:var(--card);padding:6px 12px;border-radius:6px;text-decoration:none;color:var(--text);font-weight:600;font-size:13px;transition:.25s;border:1px solid rgba(255,255,255,0.06)}
+    a.btn:hover{background:var(--accent);color:#041019}
+
+    /* Sections */
+    section{margin-bottom:34px}
+    h2{margin-bottom:12px;font-size:18px;border-left:4px solid var(--accent);padding-left:8px}
+
+    /* Hero */
+    .hero{text-align:center;background:var(--card);padding:20px;border-radius:var(--radius);margin-bottom:30px}
+    h1{font-size:24px;margin-bottom:8px}
+    p.lead{color:var(--muted);font-size:15px}
+    .stats{display:flex;justify-content:center;gap:16px;margin-top:16px;flex-wrap:wrap}
+    .stat{background:var(--card);padding:12px 16px;border-radius:10px;min-width:100px}
+    .stat strong{display:block;font-size:18px;color:var(--accent)}
+    .stat small{color:var(--muted)}
+
+    /* Projects */
+    .projects-grid{display:grid;grid-template-columns:1fr;gap:14px}
+    .project{background:var(--card);padding:14px;border-radius:10px}
+    .project h3{margin-bottom:6px;font-size:16px}
+    .project p{color:var(--muted);font-size:13px;margin-bottom:8px}
+
+    /* Skills */
+    .skills{display:flex;flex-wrap:wrap;gap:8px}
+    .skill{padding:6px 12px;border-radius:999px;background:var(--card);border:1px solid rgba(255,255,255,0.06);font-size:13px;font-weight:600}
+
+    /* Contact */
+    .contact-card{background:var(--card);padding:16px;border-radius:var(--radius);text-align:center}
+    .social{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .social a{padding:6px 12px;border-radius:6px;background:var(--accent);text-decoration:none;color:#041019;font-weight:600;font-size:14px}
+
+    footer{text-align:center;padding:12px;font-size:13px;color:var(--muted);background:var(--card);border-radius:10px;margin-top:20px}
+    
+    /* Larger screens */
+    @media(min-width:700px){
+      .projects-grid{grid-template-columns:repeat(2,1fr);}
+    }
+    @media(min-width:1000px){
+      .projects-grid{grid-template-columns:repeat(3,1fr);}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Sticky Header -->
+    <header>
+      <div class="brand">
+        <div class="avatar">M</div>
+        <div>
+          <div class="name">Mohit Kumar Singh</div>
+          <div class="muted">B.Tech CSE</div>
+        </div>
+      </div>
+      <nav>
+        <a class="btn" href="#projects">Projects</a>
+        <a class="btn" href="#skills">Skills</a>
+        <a class="btn" href="#contact">Contact</a>
+        <a class="btn" href="https://www.linkedin.com/in/mohit-kumar-singh-063904263" target="_blank">LinkedIn</a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1>Hi — I'm Mohit 👋</h1>
+      <p class="lead">Computer Science undergraduate passionate about algorithms, systems programming and data analytics. I love writing clean, well-documented code and enjoy problem solving.</p>
+      <div class="stats">
+        <div class="stat"><strong>4+</strong><small>Projects</small></div>
+        <div class="stat"><strong>8+</strong><small>GPA in first year</small></div>
+      </div>
+      <div style="margin-top:14px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="#projects">See Projects</a>
+        <a class="btn" href="/resume.pdf" download>Download Resume</a>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <h2>🚀 Projects</h2>
+      <div class="projects-grid">
+        <div class="project"><h3>Smart Energy Meter</h3><p>IoT-enabled energy meter that tracks real-time usage and analytics.</p><div><span class="skill">IoT</span> <span class="skill">Embedded C</span></div></div>
+        <div class="project"><h3>Smart EV Charging</h3><p>Monitoring solution for EV stations with load management.</p><div><span class="skill">IoT</span> <span class="skill">Cloud</span></div></div>
+        <div class="project"><h3>Hospital Management (C)</h3><p>Console app for managing patient records & billing.</p><div><span class="skill">C</span> <span class="skill">File Handling</span></div></div>
+        <div class="project"><h3>Hackathon SIH 2025</h3><p>Built an IIoT-based solution during Smart India Hackathon.</p><div><span class="skill">IIoT</span> <span class="skill">Teamwork</span></div></div>
+        <div class="project"><h3>Data Structures Library</h3><p>Implemented linked lists, stacks, queues & binary trees.</p><div><span class="skill">C</span> <span class="skill">Pointers</span></div></div>
+        <div class="project"><h3>Simple Search Engine</h3><p>Prototype search index using TF-IDF and cosine similarity.</p><div><span class="skill">Python</span> <span class="skill">Pandas</span></div></div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <h2>🛠 Skills</h2>
+      <div class="skills">
+        <span class="skill">C</span>
+        <span class="skill">Python</span>
+        <span class="skill">Data Structures</span>
+        <span class="skill">Pandas</span>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2>📩 Contact</h2>
+      <div class="contact-card">
+        <p class="muted">Open to internships, collaborations & interview practice.</p>
+        <div style="margin-top:12px">
+          <a class="btn" href="mailto:immohitsingh1327@gmail.com">Email</a>
+          <a class="btn" href="https://www.linkedin.com/in/mohit-kumar-singh-063904263" target="_blank">LinkedIn</a>
+        </div>
+        <div class="social">
+          <a href="#">GitHub</a>
+          <a href="#">LeetCode</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Mohit Kumar Singh • Built with ❤️
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
