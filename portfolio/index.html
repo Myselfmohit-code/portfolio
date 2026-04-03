@@ -149,7 +149,6 @@
       overflow: hidden;
     }
 
-    /* Background orbs */
     #hero::before {
       content: '';
       position: absolute;
@@ -772,7 +771,6 @@
       align-items: center;
       gap: 1rem;
       color: var(--text-muted);
-      transition: color 0.2s;
       font-size: 0.875rem;
       padding: 0.9rem 1rem;
       border: 1px solid var(--border);
@@ -798,6 +796,7 @@
       flex-shrink: 0;
     }
 
+    /* === CONTACT FORM === */
     .contact-form {
       background: var(--bg-3);
       border: 1px solid var(--border);
@@ -847,6 +846,16 @@
       text-align: center;
       padding: 1rem;
       color: var(--accent-green);
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .form-error {
+      display: none;
+      text-align: center;
+      padding: 1rem;
+      color: #f87171;
       font-weight: 500;
       font-size: 0.9rem;
       margin-top: 1rem;
@@ -912,7 +921,7 @@
       margin: 0;
     }
 
-    /* === SCROLL REVEAL (simple CSS animation) === */
+    /* === SCROLL REVEAL === */
     .reveal {
       opacity: 0;
       transform: translateY(28px);
@@ -1271,6 +1280,8 @@
       <h2 class="section-title">Let's Connect</h2>
 
       <div class="contact-grid">
+
+        <!-- Contact Info (left column) -->
         <div class="contact-info reveal">
           <p>Whether you have an opportunity, a project idea, or just want to say hi — my inbox is always open. I'll get back to you as soon as possible.</p>
           <div class="contact-links">
@@ -1289,30 +1300,86 @@
           </div>
         </div>
 
+        <!-- Contact Form (right column) — Formspree powered -->
         <div class="contact-form reveal">
-          <div class="form-group">
-            <label for="fname">Name</label>
-            <input type="text" id="fname" placeholder="Your full name" />
-          </div>
-          <div class="form-group">
-            <label for="femail">Email</label>
-            <input type="email" id="femail" placeholder="your@email.com" />
-          </div>
-          <div class="form-group">
-            <label for="fsubject">Subject</label>
-            <input type="text" id="fsubject" placeholder="How can I help?" />
-          </div>
-          <div class="form-group">
-            <label for="fmessage">Message</label>
-            <textarea id="fmessage" placeholder="Write your message here..."></textarea>
-          </div>
-          <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitForm()">
-            <i class="fa-solid fa-paper-plane"></i> Send Message
-          </button>
-          <div class="form-success" id="formSuccess">
-            ✅ Message sent! I'll get back to you soon.
-          </div>
+          <!--
+            ============================================================
+            FORMSPREE SETUP INSTRUCTIONS:
+            1. Go to https://formspree.io and create a free account.
+            2. Create a new form and copy your unique Form ID.
+            3. Replace YOUR_FORM_ID below with that ID.
+               Example: action="https://formspree.io/f/abcd1234"
+            ============================================================
+          -->
+          <form id="contactForm" action="https://formspree.io/f/xgoplrlb" method="POST" novalidate>
+
+            <!-- Hidden field: redirect back to same page after submit (optional) -->
+            <!-- <input type="hidden" name="_next" value="https://yourdomain.com/#contact"> -->
+
+            <div class="form-group">
+              <label for="fname">Name</label>
+              <input
+                type="text"
+                id="fname"
+                name="name"
+                placeholder="Your full name"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="femail">Email</label>
+              <input
+                type="email"
+                id="femail"
+                name="email"
+                placeholder="your@email.com"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="fsubject">Subject</label>
+              <input
+                type="text"
+                id="fsubject"
+                name="subject"
+                placeholder="How can I help?"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="fmessage">Message</label>
+              <textarea
+                id="fmessage"
+                name="message"
+                placeholder="Write your message here..."
+                required
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              id="submitBtn"
+              class="btn btn-primary"
+              style="width:100%; justify-content:center;"
+            >
+              <i class="fa-solid fa-paper-plane"></i> Send Message
+            </button>
+
+            <!-- Success message -->
+            <div class="form-success" id="formSuccess">
+              ✅ Message sent! I'll get back to you soon.
+            </div>
+
+            <!-- Error message -->
+            <div class="form-error" id="formError">
+              ❌ Something went wrong. Please try again or email me directly.
+            </div>
+
+          </form>
         </div>
+
       </div>
     </div>
   </section>
@@ -1332,7 +1399,9 @@
   </footer>
 
   <script>
-    // === Mobile nav toggle ===
+    /* ===================================================
+       MOBILE NAV TOGGLE
+    =================================================== */
     function toggleMenu() {
       const nav = document.getElementById('mobileNav');
       const burger = document.getElementById('hamburger');
@@ -1345,7 +1414,19 @@
       document.getElementById('hamburger').classList.remove('open');
     }
 
-    // === Scroll reveal ===
+    // Close mobile nav on outside click
+    document.addEventListener('click', (e) => {
+      const nav = document.getElementById('mobileNav');
+      const burger = document.getElementById('hamburger');
+      if (!nav.contains(e.target) && !burger.contains(e.target)) {
+        nav.classList.remove('open');
+        burger.classList.remove('open');
+      }
+    });
+
+    /* ===================================================
+       SCROLL REVEAL
+    =================================================== */
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1356,47 +1437,79 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // === Contact form ===
-    function submitForm() {
-      const name = document.getElementById('fname').value.trim();
-      const email = document.getElementById('femail').value.trim();
+    /* ===================================================
+       NAVBAR SHRINK ON SCROLL
+    =================================================== */
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      nav.style.padding = window.scrollY > 50 ? '0.75rem 0' : '1.1rem 0';
+    });
+
+    /* ===================================================
+       FORMSPREE CONTACT FORM — AJAX SUBMIT
+       Sends data to Formspree without redirecting the page.
+       Replace YOUR_FORM_ID in the <form> action attribute
+       with your real Formspree Form ID.
+    =================================================== */
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn   = document.getElementById('submitBtn');
+    const formSuccess = document.getElementById('formSuccess');
+    const formError   = document.getElementById('formError');
+
+    contactForm.addEventListener('submit', async function (e) {
+      e.preventDefault(); // prevent default browser redirect
+
+      // Hide previous messages
+      formSuccess.style.display = 'none';
+      formError.style.display   = 'none';
+
+      // Basic client-side validation
+      const name    = document.getElementById('fname').value.trim();
+      const email   = document.getElementById('femail').value.trim();
       const message = document.getElementById('fmessage').value.trim();
 
       if (!name || !email || !message) {
-        alert('Please fill in all required fields.');
+        alert('Please fill in the Name, Email, and Message fields.');
         return;
       }
 
-      document.getElementById('formSuccess').style.display = 'block';
-      document.getElementById('fname').value = '';
-      document.getElementById('femail').value = '';
-      document.getElementById('fsubject').value = '';
-      document.getElementById('fmessage').value = '';
+      // Disable button while sending
+      submitBtn.disabled    = true;
+      submitBtn.innerHTML   = '<i class="fa-solid fa-spinner fa-spin"></i> Sending…';
 
-      setTimeout(() => {
-        document.getElementById('formSuccess').style.display = 'none';
-      }, 5000);
-    }
+      try {
+        const response = await fetch(contactForm.action, {
+          method:  'POST',
+          body:    new FormData(contactForm),
+          headers: { 'Accept': 'application/json' }
+        });
 
-    // === Navbar scroll effect ===
-    window.addEventListener('scroll', () => {
-      const nav = document.querySelector('nav');
-      if (window.scrollY > 50) {
-        nav.style.padding = '0.75rem 0';
-      } else {
-        nav.style.padding = '1.1rem 0';
-      }
-    });
+        if (response.ok) {
+          // Success
+          formSuccess.style.display = 'block';
+          contactForm.reset();
 
-    // Close mobile nav on outside click
-    document.addEventListener('click', (e) => {
-      const nav = document.getElementById('mobileNav');
-      const burger = document.getElementById('hamburger');
-      if (!nav.contains(e.target) && !burger.contains(e.target)) {
-        nav.classList.remove('open');
-        burger.classList.remove('open');
+          // Auto-hide success message after 6 seconds
+          setTimeout(() => { formSuccess.style.display = 'none'; }, 6000);
+        } else {
+          // Formspree returned an error
+          const data = await response.json();
+          if (data && data.errors) {
+            console.error('Formspree errors:', data.errors);
+          }
+          formError.style.display = 'block';
+        }
+      } catch (err) {
+        // Network error
+        console.error('Fetch error:', err);
+        formError.style.display = 'block';
+      } finally {
+        // Re-enable the button
+        submitBtn.disabled  = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
       }
     });
   </script>
+
 </body>
 </html>
